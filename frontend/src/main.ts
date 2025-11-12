@@ -1,6 +1,6 @@
 import van from "vanjs-core"
 // import van from "vanjs-core/debug"
-import htm from 'htm'
+import htm from 'htm/mini'
 
 import './style.css'
 import './app.css'
@@ -21,24 +21,25 @@ function main() {
 }
 
 function Hello() {
-  const __ = van.tags
-
   const counter = van.state(0)
-  return (1 > 0) ? html`
+  return html`
 <div>
   ❤️ ${counter}
   <button onclick="${() => ++counter.val}">👍</button>
   <button onclick="${() => --counter.val}">👎</button>
 </div>
+<hr/><${WailsDemo} btnText='Greet'/><hr/>`
+}
+
+function WailsDemo({ btnText = "Say Hello" }) {
+  return html`
+    <img id='logo' class='logo' src='${logo}' />
+    <div class='result' id='result'>Please enter your name below</div>
+    <div class='input-box' id='input'>
+      <input class='input' id='name' type='text' autocomplete='off' />
+      <button class='btn' onclick=${window.greet}>${btnText}</button>
+    </div>
   `
-    : __.span(
-      __.img({ id: 'logo', class: 'logo', src: logo }),
-      __.div({ class: 'result', id: 'result' }, "Please enter your name below"),
-      __.div({ class: 'input-box', id: 'input' },
-        __.input({ class: 'input', id: 'name', type: 'text', autocomplete: 'off' }),
-        __.button({ class: 'btn', onclick: () => window.greet() }, "Gruetz"),
-      ),
-    )
 }
 
 window.greet = errable(async () => {
@@ -63,7 +64,7 @@ function errable(fn: () => Promise<void>) {
 }
 
 const html = htm.bind((type: any, props: Record<string, any>, ...children: any[]) => {
-  const tag = van.tags[type]
+  const tag = (typeof type === 'function') ? type : van.tags[type]
   if (props)
     return tag(props, ...children)
   return tag(...children)
