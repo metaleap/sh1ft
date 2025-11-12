@@ -1,0 +1,129 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "wails dev",
+      "command": "wails",
+      "args": [ "dev" ],
+      "group": "test",
+      "isBackground": true,
+      "icon": { "id": "rocket" },
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+        "close": true
+      },
+      "runOptions": { "instanceLimit": 1, "instancePolicy": "terminateNewest" },
+    },
+    {
+      "label": "build",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "CGO_ENABLED": "1"
+        }
+      },
+      "osx": {
+        "options": {
+          "env": {
+            "CGO_CFLAGS": "-mmacosx-version-min=10.13",
+            "CGO_LDFLAGS": "-framework UniformTypeIdentifiers -mmacosx-version-min=10.13"
+          }
+        }
+      },
+      "windows": {
+        "options": {
+          "env": {
+            "CGO_ENABLED": "0"
+          }
+        }
+      },
+      "command": "go",
+      "args": [
+        "build",
+        "-tags",
+        "production,desktop",
+        "-gcflags",
+        "all=-N -l",
+        "-o",
+        "build/bin/sh1ft"
+      ]
+    },
+    {
+      "label": "build debug",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "CGO_ENABLED": "1"
+        }
+      },
+      "osx": {
+        "options": {
+          "env": {
+            "CGO_CFLAGS": "-mmacosx-version-min=10.13",
+            "CGO_LDFLAGS": "-framework UniformTypeIdentifiers -mmacosx-version-min=10.13"
+          }
+        }
+      },
+      "windows": {
+        "options": {
+          "env": {
+            "CGO_ENABLED": "0"
+          }
+        }
+      },
+      "command": "go",
+      "args": [
+        "build",
+        "-tags",
+        "production,desktop,debug",
+        "-gcflags",
+        "all=-N -l",
+        "-o",
+        "build/bin/sh1ft"
+      ]
+    },
+    {
+      "label": "build dev",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "CGO_ENABLED": "1"
+        }
+      },
+      "osx": {
+        "options": {
+          "env": {
+            "CGO_CFLAGS": "-mmacosx-version-min=10.13",
+            "CGO_LDFLAGS": "-framework UniformTypeIdentifiers -mmacosx-version-min=10.13"
+          }
+        }
+      },
+      "windows": {
+        "options": {
+          "env": {
+            "CGO_ENABLED": "0"
+          }
+        }
+      },
+      "command": "go",
+      "args": [
+        "build",
+        "-tags",
+        "dev",
+        "-gcflags",
+        "all=-N -l",
+        "-o",
+        "build/bin/sh1ft"
+      ]
+    }
+  ]
+}

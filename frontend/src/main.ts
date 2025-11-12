@@ -1,0 +1,73 @@
+import van from "vanjs-core"
+// import van from "vanjs-core/debug"
+import htm from 'htm'
+
+import './style.css'
+import './app.css'
+import logo from './assets/images/logo-universal.png'
+
+import * as App from '../wailsjs/go/main/App'
+
+
+
+declare global {
+  interface Window {
+    greet: () => Promise<void>
+  }
+}
+
+function main() {
+  van.add(document.getElementById('app')!, Hello())
+}
+
+function Hello() {
+  const __ = van.tags
+
+  const counter = van.state(0)
+  return (1 > 0) ? html`
+<div>
+  ❤️ ${counter}
+  <button onclick="${() => ++counter.val}">👍</button>
+  <button onclick="${() => --counter.val}">👎</button>
+</div>
+  `
+    : __.span(
+      __.img({ id: 'logo', class: 'logo', src: logo }),
+      __.div({ class: 'result', id: 'result' }, "Please enter your name below"),
+      __.div({ class: 'input-box', id: 'input' },
+        __.input({ class: 'input', id: 'name', type: 'text', autocomplete: 'off' }),
+        __.button({ class: 'btn', onclick: () => window.greet() }, "Gruetz"),
+      ),
+    )
+}
+
+window.greet = errable(async () => {
+  const name = (document.getElementById('name') as HTMLInputElement)?.value.trim() ?? ""
+  if (name === "")
+    return
+
+  const result = await App.Greet(name)
+  document.getElementById('result')!.innerText = result
+})
+
+
+function errable(fn: () => Promise<void>) {
+  return async () => {
+    try {
+      await fn()
+    } catch (err) {
+      const s1 = `${err}`, s2 = JSON.stringify(err)
+      alert(s1 + '\n\n' + s2)
+    }
+  }
+}
+
+const html = htm.bind((type: any, props: Record<string, any>, ...children: any[]) => {
+  const tag = van.tags[type]
+  if (props)
+    return tag(props, ...children)
+  return tag(...children)
+})
+
+
+main()
