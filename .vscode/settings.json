@@ -2,10 +2,12 @@
     "files.exclude": {
         "**/node_modules": true,
         "**/*.js": true,
+        "build": true,
     },
     "search.exclude": {
         "**/node_modules": true,
-        "**/*.js": true
+        "**/*.js": true,
+        "build": true,
     },
     "json.schemas": [
         {

@@ -23,12 +23,14 @@ function main() {
 function Hello() {
   const counter = van.state(0)
   return html`
-<div>
-  ❤️ ${counter}
-  <button onclick="${() => ++counter.val}">👍</button>
-  <button onclick="${() => --counter.val}">👎</button>
-</div>
-<hr/><${WailsDemo} btnText='Greet'/><hr/>`
+    <div>
+      ❤️ ${counter}
+      <button onclick="${() => ++counter.val}">👍</button>
+      <button onclick="${() => --counter.val}">👎</button>
+    </div>
+    <hr />
+    <${WailsDemo} btnText='Greet' />
+    <hr />`
 }
 
 function WailsDemo({ btnText = "Say Hello" }) {
@@ -36,10 +38,21 @@ function WailsDemo({ btnText = "Say Hello" }) {
     <img id='logo' class='logo' src='${logo}' />
     <div class='result' id='result'>Please enter your name below</div>
     <div class='input-box' id='input'>
-      <input class='input' id='name' type='text' autocomplete='off' />
+      <${TextInput} class='inputYo' id='name' type='text' autocomplete='off' />
       <button class='btn' onclick=${window.greet}>${btnText}</button>
     </div>
   `
+}
+
+function onTextInputKeyUp(e: KeyboardEvent) {
+  if (e.ctrlKey && e.key === 'z')
+    document.execCommand(e.shiftKey ? 'redo' : 'undo')
+  else if (e.ctrlKey && e.key === 'y')
+    document.execCommand('redo')
+}
+
+function TextInput(props: HTMLInputElement) {
+  return html`<input ...${props} onkeyup=${onTextInputKeyUp} />`
 }
 
 window.greet = errable(async () => {
@@ -63,7 +76,7 @@ function errable(fn: () => Promise<void>) {
   }
 }
 
-const html = htm.bind((type: any, props: Record<string, any>, ...children: any[]) => {
+const html = htm.bind((type: any, props: Record<string, any>, ...children: any[]): Node => {
   const tag = (typeof type === 'function') ? type : van.tags[type]
   if (props)
     return tag(props, ...children)
