@@ -38,16 +38,16 @@ function WailsDemo({ btnText = "Say Hello" }) {
     <img id='logo' class='logo' src='${logo}' />
     <div class='result' id='result'>Please enter your name below</div>
     <div class='input-box' id='input'>
-      <${TextInput} class='inputYo' id='name' type='text' autocomplete='off' />
+      <${TextInput} class='input' id='name' type='text' autocomplete='off' />
       <button class='btn' onclick=${window.greet}>${btnText}</button>
     </div>
   `
 }
 
-function onTextInputKeyUp(e: KeyboardEvent) {
-  if (e.ctrlKey && e.key === 'z')
-    document.execCommand(e.shiftKey ? 'redo' : 'undo')
-  else if (e.ctrlKey && e.key === 'y')
+function onTextInputKeyUp(evt: KeyboardEvent) {
+  if (evt.ctrlKey && evt.key === 'z')
+    document.execCommand(evt.shiftKey ? 'redo' : 'undo')
+  else if (evt.ctrlKey && evt.key === 'y')
     document.execCommand('redo')
 }
 
