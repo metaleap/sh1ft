@@ -3,7 +3,6 @@ import van from "vanjs-core"
 import htm from 'htm/mini'
 
 import './style.css'
-import './app.css'
 import logo from './assets/images/logo-universal.png'
 
 import * as App from '../wailsjs/go/main/App'
@@ -17,29 +16,29 @@ declare global {
 }
 
 function main() {
-  van.add(document.getElementById('app')!, Hello())
+  van.add(document.body, Hello())
 }
 
 function Hello() {
   const counter = van.state(0)
   return html`
-    <div>
+    <div class="bg-white">
       ❤️ ${counter}
       <button onclick="${() => ++counter.val}">👍</button>
       <button onclick="${() => --counter.val}">👎</button>
     </div>
     <hr />
-    <${WailsDemo} btnText='Greet' />
-    <hr />`
+    <${WailsDemo} btnText="Greet" />
+  `
 }
 
 function WailsDemo({ btnText = "Say Hello" }) {
   return html`
-    <img id='logo' class='logo' src='${logo}' />
-    <div class='result' id='result'>Please enter your name below</div>
-    <div class='input-box' id='input'>
-      <${TextInput} class='input' id='name' type='text' autocomplete='off' />
-      <button class='btn' onclick=${window.greet}>${btnText}</button>
+    <img id="logo" class="logo" src="${logo}" />
+    <div class="result" id="result">Please enter your name below</div>
+    <div class="input-box" id="input">
+      <${TextInput} class="input" id="name" type="text" autocomplete="off" />
+      <button class="btn bg-am" onclick=${window.greet}>${btnText}</button>
     </div>
   `
 }
