@@ -75,11 +75,9 @@ function errable(fn: () => Promise<void>) {
   }
 }
 
-const html = htm.bind((type: any, props: Record<string, any>, ...children: any[]): Node => {
-  const tag = (typeof type === 'function') ? type : van.tags[type]
-  if (props)
-    return tag(props, ...children)
-  return tag(...children)
+const html = htm.bind((tagNameOrCtor: any, props: Record<string, any>, ...children: any[]): Node => {
+  const ctor = (typeof tagNameOrCtor === 'function') ? tagNameOrCtor : van.tags[tagNameOrCtor]
+  return props ? ctor(props, ...children) : ctor(...children)
 })
 
 
