@@ -24,10 +24,8 @@
         "name": "typescript-lit-html-plugin",
         "tags": [
           "html",
-          "raw",
-          "ht",
-          "__"
-        ]
+        ],
+        "format": { "enabled": false }
       }
     ]
   },

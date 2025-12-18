@@ -1,9 +1,10 @@
 import van from "vanjs-core"
 // import van from "vanjs-core/debug"
-import htm from 'htm/mini'
+import htm from 'htm'
+// import htm from 'htm/mini'
 
 import './style.css'
-import logo from './assets/images/logo-universal.png'
+// import logo from './assets/logo-universal.png'
 
 import * as App from '../wailsjs/go/main/App'
 
@@ -16,42 +17,48 @@ declare global {
 }
 
 function main() {
-  van.add(document.body, Hello())
+  van.add(document.body, Main())
+}
+
+function Main() {
+  return html`
+    <div data-theme="business" class="w-screen h-screen overflow-hidden">
+      <${Hello} />
+    </div>
+  `
 }
 
 function Hello() {
   const counter = van.state(0)
   return html`
-    <div class="bg-white">
-      ❤️ ${counter}
-      <button onclick="${() => ++counter.val}">👍</button>
-      <button onclick="${() => --counter.val}">👎</button>
+    <div class="text-xl">
+      ${counter}
+      <button class="btn-secondary" onclick=${()=> ++counter.val}>👍</button>
+      <button class="btn-secondary" onclick=${()=> --counter.val}>👎</button>
     </div>
     <hr />
     <${WailsDemo} btnText="Greet" />
   `
 }
 
-function WailsDemo({ btnText = "Say Hello" }) {
+function WailsDemo(_: { btnText?: string }) {
   return html`
-    <img id="logo" class="logo" src="${logo}" />
-    <div class="result" id="result">Please enter your name below</div>
-    <div class="input-box" id="input">
-      <${TextInput} class="input" id="name" type="text" autocomplete="off" />
-      <button class="btn bg-am" onclick=${window.greet}>${btnText}</button>
+    <div id="result">Please enter your name below</div>
+    <div>
+      <${TextInput} class="input bg-base-300" id="name" type="text" />
+      <button class="btn btn-neutral" onclick=${window.greet}>${_.btnText ?? "Say Hi"}</button>
     </div>
   `
 }
 
-function onTextInputKeyUp(evt: KeyboardEvent) {
-  if (evt.ctrlKey && evt.key === 'z')
-    document.execCommand(evt.shiftKey ? 'redo' : 'undo')
-  else if (evt.ctrlKey && evt.key === 'y')
-    document.execCommand('redo')
-}
-
-function TextInput(props: HTMLInputElement) {
-  return html`<input ...${props} onkeyup=${onTextInputKeyUp} />`
+function TextInput(_: HTMLInputElement) {
+  function onTextInputKeyUp(evt: KeyboardEvent) {
+    if (evt.ctrlKey && evt.key === 'z')
+      document.execCommand(evt.shiftKey ? 'redo' : 'undo')
+    else if (evt.ctrlKey && evt.key === 'y')
+      document.execCommand('redo')
+  }
+  return html`<input ...${_} onkeyup=${onTextInputKeyUp} />`
 }
 
 window.greet = errable(async () => {
@@ -70,7 +77,7 @@ function errable(fn: () => Promise<void>) {
       await fn()
     } catch (err) {
       const s1 = `${err}`, s2 = JSON.stringify(err)
-      alert(s1 + '\n\n' + s2)
+      alert(s1 + ('\n\n') + s2)
     }
   }
 }
@@ -79,6 +86,5 @@ const html = htm.bind((tagNameOrCtor: any, props: Record<string, any>, ...childr
   const ctor = (typeof tagNameOrCtor === 'function') ? tagNameOrCtor : van.tags[tagNameOrCtor]
   return props ? ctor(props, ...children) : ctor(...children)
 })
-
 
 main()
