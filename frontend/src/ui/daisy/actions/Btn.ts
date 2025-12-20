@@ -1,0 +1,33 @@
+import { html, cn } from '../..'
+import * as daisy from '../'
+
+const undef = void 0
+
+// TWduty
+'btn-square btn-circle btn-wide btn-block btn-soft btn-outline btn-dash btn-ghost btn-link btn-neutral btn-primary btn-secondary btn-accent btn-info btn-success btn-warning btn-error'
+
+export type BtnProps = (HTMLButtonElement | HTMLAnchorElement | HTMLInputElement) & {
+  tagName?: 'button' | 'input' | 'a'
+  size?: daisy.Sizes | 'auto'
+  shape?: 'square' | 'circle' | 'wide' | 'block'
+  buttonStyle?: 'soft' | 'outline' | 'dash' | 'ghost' | 'link'
+  color?: daisy.Colors
+}
+
+export function Btn(props: BtnProps, ...children: any[]) {
+  const { tagName, size, shape, buttonStyle, color, ...btnProps } = props
+  if (color === daisy.Colors.Neutral && (buttonStyle === 'dash' || buttonStyle === 'outline'))
+    alert(`dark-incompatible button combo: 'neutral' color with '${buttonStyle}' style`)
+  const cnSize = size === 'auto'
+    ? "btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl"
+    : (!size ? undef : `btn-${size}`)
+  const Elem = tagName ?? 'button'
+  return html`<${Elem} ...${btnProps} role="${tagName !== 'a' ? undef : 'button'}" class="${cn(
+    props.className,
+    'btn',
+    cnSize,
+    !shape ? undef : `btn-${shape}`,
+    !buttonStyle ? undef : `btn-${buttonStyle}`,
+    !color ? undef : `btn-${color}`,
+  )}">${children}</${Elem}>`
+}

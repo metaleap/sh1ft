@@ -1,13 +1,12 @@
-import van from "vanjs-core"
-// import van from "vanjs-core/debug"
-import htm from 'htm'
-// import htm from 'htm/mini'
+import van from 'vanjs-core'
+// import van from 'vanjs-core/debug'
+
+import { html } from './ui'
 
 import './style.css'
 // import logo from './assets/logo-universal.png'
 
 import * as App from '../wailsjs/go/main/App'
-
 
 
 declare global {
@@ -33,8 +32,8 @@ function Hello() {
   return html`
     <div class="text-xl">
       ${counter}
-      <button class="btn-secondary" onclick=${()=> ++counter.val}>👍</button>
-      <button class="btn-secondary" onclick=${()=> --counter.val}>👎</button>
+      <Btn color="secondary" size="sm" shape="circle" onclick=${() => ++counter.val}>👍</Btn>
+      <Btn color="secondary" size="sm" shape="circle" onclick=${() => --counter.val}>👎</Btn>
     </div>
     <hr />
     <${WailsDemo} btnText="Greet" />
@@ -46,7 +45,9 @@ function WailsDemo(_: { btnText?: string }) {
     <div id="result">Please enter your name below</div>
     <div>
       <${TextInput} class="input bg-base-300" id="name" type="text" />
-      <button class="btn btn-neutral" onclick=${window.greet}>${_.btnText ?? "Say Hi"}</button>
+      <Btn color="primary" onclick=${window.greet}>
+        Yo ${_.btnText ?? "Say Hi"}
+      </Btn>
     </div>
   `
 }
@@ -81,10 +82,5 @@ function errable(fn: () => Promise<void>) {
     }
   }
 }
-
-const html = htm.bind((tagNameOrCtor: any, props: Record<string, any>, ...children: any[]): Node => {
-  const ctor = (typeof tagNameOrCtor === 'function') ? tagNameOrCtor : van.tags[tagNameOrCtor]
-  return props ? ctor(props, ...children) : ctor(...children)
-})
 
 main()
