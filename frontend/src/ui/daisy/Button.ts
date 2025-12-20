@@ -1,12 +1,12 @@
-import { html, cn } from '../..'
-import * as daisy from '../'
+import { html, cn } from '../'
+import * as daisy from './'
 
 const undef = void 0
 
 // TWduty
 'btn-square btn-circle btn-wide btn-block btn-soft btn-outline btn-dash btn-ghost btn-link btn-neutral btn-primary btn-secondary btn-accent btn-info btn-success btn-warning btn-error'
 
-export type BtnProps = (HTMLButtonElement | HTMLAnchorElement | HTMLInputElement) & {
+export type ButtonProps = (HTMLButtonElement | HTMLAnchorElement | HTMLInputElement) & {
   tagName?: 'button' | 'input' | 'a'
   size?: daisy.Sizes | 'auto'
   shape?: 'square' | 'circle' | 'wide' | 'block'
@@ -14,7 +14,7 @@ export type BtnProps = (HTMLButtonElement | HTMLAnchorElement | HTMLInputElement
   color?: daisy.Colors
 }
 
-export function Btn(props: BtnProps, ...children: any[]) {
+export function Button(props: ButtonProps, ...children: any[]) {
   const { tagName, size, shape, buttonStyle, color, ...btnProps } = props
   if (color === daisy.Colors.Neutral && (buttonStyle === 'dash' || buttonStyle === 'outline'))
     alert(`dark-incompatible button combo: 'neutral' color with '${buttonStyle}' style`)

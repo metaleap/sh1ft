@@ -3,26 +3,25 @@ import van from 'vanjs-core'
 import htm from 'htm'
 // import htm from 'htm/mini'
 
-import { Btn } from './daisy'
+import { Button, Dropdown } from './daisy'
 
 const compos = new Map<string, ((props: any, ...children: any[]) => Node | Node[])>([
-  Btn,
+  Button,
+  Dropdown,
 ].map(_ => [_.name, _]))
 
 
-export const html = htm.bind((tagNameOrCtor: string | Function, props, ...children): Node => {
-  const
-    isCharUpper = (_: number) => _ > 64 && _ < 91, // 'A'..'Z'
-    ctor = (typeof tagNameOrCtor === 'function')
-      ? tagNameOrCtor
-      : (isCharUpper(tagNameOrCtor.charCodeAt(0)) ? compos.get(tagNameOrCtor) : van.tags[tagNameOrCtor]) as Function
+export const html = htm.bind((tagNameOrCtor, props, ...children): Node => {
+  console.log("HT", tagNameOrCtor, props)
+  const ctor = (typeof tagNameOrCtor === 'function')
+    ? tagNameOrCtor
+    : (compos.get(tagNameOrCtor) ?? van.tags[tagNameOrCtor])
   if (!ctor || typeof ctor !== 'function')
     alert(`No such tag: ${tagNameOrCtor}`)
-  return !props ? ctor(children) : ctor(props, children)
+  return ctor(props ?? {}, ...children)
 })
 
-export type Cn = undefined | string | Cn[]
-
+type Cn = undefined | string | Cn[]
 export function cn(...args: Cn[]) {
   const ret = new Set<string>()
   function walk(_: Cn) {
