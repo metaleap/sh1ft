@@ -1,13 +1,12 @@
 import van from 'vanjs-core'
 // import van from 'vanjs-core/debug'
 
-
 import { html } from './ui'
 
 import './style.css'
-// import logo from './assets/logo-universal.png'
 
-import * as App from '../wailsjs/go/main/App'
+
+import { Plus as svgAdd, Settings as svgConfig, Search as svgFind, Import as svgImport, Archive as svgBackup, ArrowRightLeft as svgInOut } from 'vanjs-lucide'
 
 
 declare global {
@@ -21,7 +20,7 @@ function main() {
 }
 
 function Main() {
-  return 1 > 0 ? html`
+  return 1 < 0 ? html`
     <div data-theme="business" class="w-screen h-screen overflow-hidden">
       <${Hello} />
       <hr />
@@ -31,61 +30,61 @@ function Main() {
       </Dropdown>
     </div>
   `: html`
-      <div class="drawer lg:drawer-open">
+      <div class="drawer drawer-open" data-theme="xbusiness">
         <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
           <!-- Navbar -->
           <nav class="navbar w-full bg-base-300">
             <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost">
               <!-- Sidebar toggle icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round"
-                stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4">
-                <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-                <path d="M9 4v16"></path>
-                <path d="M14 10l2 2l-2 2"></path>
-              </svg>
+              ${svgInOut}
             </label>
             <div class="px-4">Navbar Title</div>
           </nav>
           <!-- Page content here -->
           <div class="p-4">Page Content</div>
         </div>
-      
+
         <div class="drawer-side is-drawer-close:overflow-visible">
           <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-          <div class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+          <div class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-12 is-drawer-open:w-123">
             <!-- Sidebar content here -->
-            <ul class="menu w-full grow">
-              <!-- List item -->
+            <ul class="menu w-full p-0 grow mt-3.5">
               <li>
                 <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
-                  <!-- Home icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round"
-                    stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4">
-                    <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                    <path
-                      d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
-                    </path>
-                  </svg>
-                  <span class="is-drawer-close:hidden">Homepage</span>
-                </button>
-              </li>
-      
-              <!-- List item -->
-              <li>
-                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
-                  <!-- Settings icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round"
-                    stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4">
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
-                  <span class="is-drawer-close:hidden">Settings</span>
+                  ${svgAdd}
                 </button>
               </li>
             </ul>
+
+            <ul class="menu w-full p-0 self-end">
+              <li>
+                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right btn-active btn-secondary"
+                  data-tip="Find">
+                  ${svgFind}
+                </button>
+              </li>
+              <li>
+                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Import / Export">
+                  ${svgImport}
+                </button>
+              </li>
+              <li>
+                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Backup / Share">
+                  ${svgBackup}
+                </button>
+              </li>
+              <li>
+                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
+                  ${svgConfig}
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="bg-base-content h-full w-111 overflow-auto absolute left-12 right-0 top-0 bottom-0 is-drawer-close:w-0">
+            yoohoo
+            <hr />
+            yeah kewl
           </div>
         </div>
       </div>
@@ -132,8 +131,9 @@ window.greet = errable(async () => {
   if (name === "")
     return
 
+  const fakeApi = async (s: string) => `Hola ${s}, how are ya?`
   document.getElementById('result')!.innerText =
-    await App.Greet(name)
+    await fakeApi(name)
 })
 
 

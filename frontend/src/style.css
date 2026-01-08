@@ -1,17 +1,19 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
 
 @layer base {
-    :root {
-        --default-font-family: system-ui;
-    }
+  :root {
+    --default-font-family: system-ui;
+  }
 
-    body {
-        margin: 0;
-        overflow: hidden;
-    }
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
 }
 
 @plugin "daisyui" {
-    themes: all;
-    logs: false;
+  themes: all;
+  logs: false;
 }

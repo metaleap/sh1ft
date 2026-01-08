@@ -12,11 +12,10 @@ const compos = new Map<string, ((props: any, ...children: any[]) => Node | Node[
 
 
 export const html = htm.bind((tagNameOrCtor, props, ...children): Node => {
-  console.log("HT", tagNameOrCtor, props)
   const ctor = (typeof tagNameOrCtor === 'function')
     ? tagNameOrCtor
     : (compos.get(tagNameOrCtor) ?? van.tags[tagNameOrCtor])
-  if (!ctor || typeof ctor !== 'function')
+  if (import.meta.env.DEV && (!ctor || typeof ctor !== 'function'))
     alert(`No such tag: ${tagNameOrCtor}`)
   return ctor(props ?? {}, ...children)
 })

@@ -1,3 +1,1 @@
 *.js linguist-generated
-build/** linguist-vendored
-frontend/dist/** linguist-generated
