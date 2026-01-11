@@ -1,0 +1,11 @@
+{
+    "mainSidebarCreateNewSpace": "(Create a new space...)",
+    "mainSidebarFindReplace": "Find & Replace",
+    "mainSidebarImportExport": "Import / Export",
+    "mainSidebarSettings": "Settings",
+
+    "mainStatusbarNotifications": "Notifications",
+
+    "spaceTmplTitle": "Example space",
+    "spaceTmplViewTitle": "Welcome"
+}

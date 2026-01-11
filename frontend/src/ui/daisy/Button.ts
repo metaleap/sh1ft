@@ -1,4 +1,4 @@
-import { html, cn } from '../'
+import { ht, cn } from '../'
 import * as daisy from './'
 
 const undef = void 0
@@ -21,14 +21,14 @@ export function Button(props: ButtonProps, ...children: any[]) {
   if (color === 'neutral' && (buttonStyle === 'dash' || buttonStyle === 'outline'))
     alert(`dark-incompatible button combo: 'neutral' color with '${buttonStyle}' style`)
   const Elem = tagName ?? 'button'
-  return html`<${Elem} ...${btnProps} role="${tagName !== 'a' ? undef : 'button'}" class="${cn(
-    props.className,
+  return ht`<${Elem} ...${btnProps} role="${tagName !== 'a' ? undef : 'button'}" class="${cn(
     'btn',
     size === 'auto'
-      ? "btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl"
-      : (!size ? undef : `btn-${size}`),
+      ? "btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" :
+      (!size ? undef : `btn-${size}`),
     !shape ? undef : `btn-${shape}`,
     !buttonStyle ? undef : `btn-${buttonStyle}`,
     !color ? undef : `btn-${color}`,
+    props.className,
   )}">${children}</${Elem}>`
 }

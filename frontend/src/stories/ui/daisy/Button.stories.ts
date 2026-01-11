@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html-vite'
 import { fn } from 'storybook/test'
 
-import { cn, html, } from '../../../ui/'
+import { cn, ht, } from '../../../ui/'
 import { Button, type ButtonProps } from '../../../ui/daisy/Button'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -9,7 +9,7 @@ const meta = {
   title: 'ui/daisy/Button',
   tags: ['autodocs'],
   render: (args) => {
-    return html`<Button ...${args}>${args.title}</Button>` as Node
+    return ht`<Button ...${args}>${args.title}</Button>` as Node
   },
   argTypes: {
     onclick: { action: 'onClick' },

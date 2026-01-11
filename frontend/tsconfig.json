@@ -29,11 +29,18 @@
 
     "plugins": [
       {
-        "name": "typescript-lit-html-plugin",
-        "tags": [
+        "name": "@jackolope/ts-lit-plugin",
+        "strict": true, "htmlTemplateTags": [
+          "ht",
           "html",
+          "raw"
         ],
-        "format": { "enabled": false }
+        "rules": {
+          "no-complex-attribute-binding": "off",
+          "no-unknown-tag-name": "off",
+          "no-unknown-attribute": "off",
+          "no-unclosed-tag": "off",
+        }
       }
     ]
 

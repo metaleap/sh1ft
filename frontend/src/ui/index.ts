@@ -3,15 +3,28 @@ import van from 'vanjs-core'
 import htm from 'htm'
 // import htm from 'htm/mini'
 
+import * as loc_en from '../loc.en.json'
+
 import { Button, Dropdown } from './daisy'
+import { MainSidebar } from './MainSidebar'
+import { MainStatusbar } from './MainStatusbar'
+import { SpaceTopbar } from './SpaceTopbar'
+
+
+const i18n = { 'en': loc_en }
+export const t = i18n['en']
+
 
 const compos = new Map<string, ((props: any, ...children: any[]) => Node | Node[])>([
   Button,
   Dropdown,
+  MainSidebar,
+  MainStatusbar,
+  SpaceTopbar,
 ].map(_ => [_.name, _]))
 
 
-export const html = htm.bind((tagNameOrCtor, props, ...children): Node => {
+export const ht = htm.bind((tagNameOrCtor, props, ...children): Node => {
   const ctor = (typeof tagNameOrCtor === 'function')
     ? tagNameOrCtor
     : (compos.get(tagNameOrCtor) ?? van.tags[tagNameOrCtor])
