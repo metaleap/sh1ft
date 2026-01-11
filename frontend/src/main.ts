@@ -5,18 +5,21 @@ import { ht, t } from './ui'
 
 import './style.css'
 
+import * as api from './_api'
+
 
 import { Plus as svgAdd, House as svgHome, Settings as svgConfig, Search as svgFind, Archive as svgArchive } from 'vanjs-lucide'
 
 
-function main() {
-  van.add(document.body, Main())
+async function main() {
+  van.add(document.body, await Main())
 }
 
-function Main() {
+async function Main() {
   document.title = t.spaceTmplTitle + ': ' + t.spaceTmplViewTitle
+
   return ht`
-    <div data-theme="dark" class="w-screen h-screen overflow-auto pt-11 pb-6 pl-22 bg-base-100">
+    <div data-theme="light" class="w-screen h-screen overflow-auto pt-11 pb-6 pl-22 bg-base-100">
 
   <MainSidebar
     alignment="left"
@@ -137,4 +140,4 @@ function Main() {
 }
 
 
-main()
+await main()

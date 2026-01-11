@@ -17,7 +17,7 @@ export type MainStatusbarProps = HTMLDivElement & {
 
 export function MainStatusbar(props: MainStatusbarProps) {
   return ht`
-    <div class="absolute right-0 flex items-center bg-neutral bottom-0 h-6 left-0">
+    <div class="absolute right-0 flex items-center bg-base-300 bottom-0 h-6 left-0">
       <div class="flex items-center">
         <Button shape="square" size="xs" buttonStyle="ghost" className="text-lg">?</Button>
       </div>

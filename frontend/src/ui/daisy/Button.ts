@@ -24,8 +24,8 @@ export function Button(props: ButtonProps, ...children: any[]) {
   return ht`<${Elem} ...${btnProps} role="${tagName !== 'a' ? undef : 'button'}" class="${cn(
     'btn',
     size === 'auto'
-      ? "btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl" :
-      (!size ? undef : `btn-${size}`),
+      ? "btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl"
+      : (!size ? undef : `btn-${size}`),
     !shape ? undef : `btn-${shape}`,
     !buttonStyle ? undef : `btn-${buttonStyle}`,
     !color ? undef : `btn-${color}`,

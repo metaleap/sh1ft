@@ -17,7 +17,7 @@ export type MainSidebarProps = HTMLDivElement & {
 export function MainSidebar(props: MainSidebarProps) {
   return ht`<div class="${cn(
     props.className,
-    "absolute bg-base-300 w-11 flex flex-col flex-nowrap items-center bottom-6 top-0",
+    "absolute bg-base-300/50 w-11 flex flex-col flex-nowrap items-center bottom-6 top-0",
     props.alignment === 'left' ? 'left-0' : 'right-0',
   )}">
 
