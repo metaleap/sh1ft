@@ -1,13 +1,6 @@
-// codegen'd at 2026-01-12 00:02:09
+// codegen'd at 2026-01-12 21:14:35
 
 import { doFetch } from './util/doFetch'
-
-export type SpacesCreateArgs = {
-}
-
-export type SpacesCreateResult = {
-  Id: number
-}
 
 export type Api1HolaArgs = {
   Name: string
@@ -23,6 +16,40 @@ export type Api2DoubleArgs = {
 
 export type Api2DoubleResult = {
   Doubled: number
+}
+
+export type SpacesCreateArgs = {
+  Space: {
+    Model: {
+      ID: number
+      CreatedAt: {
+      }
+
+
+      UpdatedAt: {
+      }
+
+
+      DeletedAt: {
+        Time: {
+        }
+
+
+        Valid: boolean
+      }
+
+
+    }
+
+
+    Name: string
+  }
+
+
+}
+
+export type SpacesCreateResult = {
+  Id: number
 }
 
 export const Spaces = {

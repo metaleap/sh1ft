@@ -25,7 +25,7 @@ func main() {
 		api := reflect.ValueOf(api)
 		for i := 0; i < tPtr.NumMethod(); i++ {
 			method := tPtr.Method(i)
-			if method.Name[0] < 'A' || method.Name[0] > 'Z' {
+			if !method.IsExported() {
 				continue
 			}
 			typeIn := method.Type.In(2)

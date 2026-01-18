@@ -43,13 +43,13 @@ func codegenAll() {
 
 func codegenTypes(buf *strings.Builder, apiName string, methodName string, tIn reflect.Type, tOut reflect.Type) {
 	buf.WriteString("export type " + apiName + methodName + "Args = ")
-	codegenType(buf, tIn)
+	codegenType(buf, tIn, 1)
 
 	buf.WriteString("export type " + apiName + methodName + "Result = ")
-	codegenType(buf, tOut)
+	codegenType(buf, tOut, 1)
 }
 
-func codegenType(buf *strings.Builder, t reflect.Type) {
+func codegenType(buf *strings.Builder, t reflect.Type, indent int) {
 	switch t.Kind() {
 	case reflect.Bool:
 		buf.WriteString("boolean")
@@ -58,17 +58,18 @@ func codegenType(buf *strings.Builder, t reflect.Type) {
 	case reflect.Int, reflect.Uint, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64:
 		buf.WriteString("number")
 	case reflect.Struct:
+		println("struct " + t.Name())
 		buf.WriteString("{\n")
 		for i := 0; i < t.NumField(); i++ {
 			field := t.Field(i)
 			if !field.IsExported() {
 				continue
 			}
-			buf.WriteString("  " + field.Name + ": ")
-			codegenType(buf, field.Type)
+			buf.WriteString(strings.Repeat("  ", indent) + field.Name + ": ")
+			codegenType(buf, field.Type, indent+1)
 			buf.WriteString("\n")
 		}
-		buf.WriteString("}\n\n")
+		buf.WriteString(strings.Repeat("  ", indent-1) + "}\n\n")
 	default:
 		panic(t.Kind().String() + ": " + t.String())
 	}
